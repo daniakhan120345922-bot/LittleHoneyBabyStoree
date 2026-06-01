@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Little Honey Baby Store - Point of Sale System
+
+A complete, production-ready POS application for a baby products retail store.
+
+## Tech Stack
+
+- Next.js 15 (App Router)
+- TypeScript
+- Tailwind CSS
+- Shadcn/UI
+- Prisma ORM
+- PostgreSQL
+- NextAuth Authentication
+- React Query / TanStack Query
+- Zustand for local state
+- Zod validation
+- Recharts for analytics
+- React Hook Form
+- Docker support
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ installed
+- PostgreSQL database running locally or accessible
+
+### Environment Setup
+
+1. Copy the environment template:
+```bash
+cp env.example .env
+```
+
+2. Edit `.env` with your database credentials:
+```env
+DATABASE_URL="postgresql://postgres:password@localhost:5432/little_honey_pos?schema=public"
+NEXTAUTH_SECRET="your-secret-key-here-change-in-production"
+NEXTAUTH_URL="http://localhost:3000"
+NODE_ENV="development"
+```
+
+### Installation
+
+```bash
+npm install
+```
+
+### Database Setup
+
+```bash
+# Generate Prisma client
+npx prisma generate
+
+# Push schema to database
+npx prisma db push
+
+# Seed database with sample data
+npm run db:seed
+```
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Default Accounts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Admin:**
+- Email: admin@littlehoney.com
+- Password: Admin123!
+
+**Cashier:**
+- Email: cashier@littlehoney.com
+- Password: Cashier123!
+
+## Features
+
+- **Dashboard**: Analytics cards, charts, recent activities
+- **Product Management**: CRUD, search, filter, import/export
+- **Inventory Management**: Stock in/out, adjustments, history
+- **Supplier Management**: Contact management, purchase history
+- **Customer Management**: Loyalty program, purchase history
+- **POS Terminal**: Barcode scanning, cart, payment processing
+- **Purchase Management**: Purchase orders, inventory updates
+- **Reports**: Sales, inventory, financial, customer reports
+- **Analytics**: Revenue trends, top products, customer growth
+- **Settings**: Store configuration, system settings
+
+## Docker Deployment
+
+```bash
+# Build and start with Docker Compose
+docker-compose up -d
+
+# Run database migrations
+docker-compose exec app npx prisma db push
+
+# Seed database
+docker-compose exec app npm run db:seed
+```
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Prisma Documentation](https://www.prisma.io/docs)
+- [Shadcn/UI Documentation](https://ui.shadcn.com)
