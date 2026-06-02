@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest } from "next/server"
 import { prisma } from "@/lib/db/prisma"
 import { auth } from "@/lib/auth"
 import { saleSchema } from "@/lib/validations/sales"
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
       select: { id: true, stockQuantity: true, isActive: true },
     })
 
-    const productStockMap = new Map<string, number>(products.map((p: any) => [p.id, p.stockQuantity]))
+    const productStockMap = new Map<string, number>(products.map((p) => [p.id, p.stockQuantity]))
 
     for (const item of items) {
       const stock: number = productStockMap.get(item.id) ?? 0
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Calculate totals
-    const subtotal = items.reduce((sum: number, item: any) => sum + item.price * item.quantity, 0)
+    const subtotal = items.reduce((sum: number, item: { price: number; quantity: number }) => sum + item.price * item.quantity, 0)
     const tax = subtotal * 0.08
     const discount = 0
     const total = subtotal + tax
@@ -51,14 +51,14 @@ export async function POST(request: NextRequest) {
     const saleNumber = `SALE-${Date.now().toString().slice(-6)}`
 
     // Create sale with items in a transaction
-    const sale = await prisma.$transaction(async (tx: any) => {
+    const sale = await prisma.$transaction(async (tx) => {
       // Fetch products to get cost prices
       const products = await tx.product.findMany({
         where: { id: { in: productIds } },
         select: { id: true, costPrice: true },
       })
 
-      const productCostMap = new Map(products.map((p: any) => [p.id, p.costPrice]))
+      const productCostMap = new Map(products.map((p) => [p.id, p.costPrice]))
 
       let totalCost = 0
       let totalProfit = 0

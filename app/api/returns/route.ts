@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     const returnNumber = `RET-${Date.now().toString().slice(-6)}`
 
     // Create return with items in a transaction
-    const returnRecord = await prisma.$transaction(async (tx: any) => {
+    const returnRecord = await prisma.$transaction(async (tx) => {
       // Create return
       const newReturn = await tx.return.create({
         data: {

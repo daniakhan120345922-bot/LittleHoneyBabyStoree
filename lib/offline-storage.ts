@@ -6,7 +6,7 @@ const STORE_NAME = 'queuedSales'
 
 interface QueuedSale {
   id: string
-  saleData: any
+  saleData: Record<string, unknown>
   timestamp: number
   synced: boolean
 }
@@ -33,7 +33,7 @@ class OfflineStorage {
     })
   }
 
-  async queueSale(saleData: any): Promise<void> {
+  async queueSale(saleData: Record<string, unknown>): Promise<void> {
     if (!this.db) await this.init()
 
     return new Promise((resolve, reject) => {

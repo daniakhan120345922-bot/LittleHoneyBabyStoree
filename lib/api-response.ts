@@ -5,14 +5,14 @@ export class ApiError extends Error {
     public statusCode: number,
     public code: string,
     message: string,
-    public details?: any
+    public details?: Record<string, unknown>
   ) {
     super(message)
     this.name = "ApiError"
   }
 }
 
-export function successResponse(data: any, message?: string) {
+export function successResponse(data: unknown, message?: string) {
   return NextResponse.json({
     success: true,
     data,
@@ -50,7 +50,7 @@ export function errorResponse(error: ApiError | Error, statusCode: number = 500)
   )
 }
 
-export function validationErrorResponse(errors: any) {
+export function validationErrorResponse(errors: unknown) {
   return NextResponse.json(
     {
       success: false,

@@ -9,11 +9,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { offlineStorage } from "@/lib/offline-storage"
 
 export default function POSPage() {
-  const [cart, setCart] = useState<any[]>([])
+  const [cart, setCart] = useState<Array<{ id: number; name: string; price: number; quantity: number; sku: string; image: string; subtotal?: number }>>([])
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [isProcessing, setIsProcessing] = useState(false)
-  const [isOnline, setIsOnline] = useState(true)
+  const [isOnline, setIsOnline] = useState(offlineStorage.isOnline())
   const barcodeInputRef = useRef<HTMLInputElement>(null)
 
   const categories = [
@@ -39,8 +39,6 @@ export default function POSPage() {
 
   // Check online status
   useEffect(() => {
-    setIsOnline(offlineStorage.isOnline())
-
     const handleOnline = () => setIsOnline(true)
     const handleOffline = () => setIsOnline(false)
 
@@ -66,7 +64,7 @@ export default function POSPage() {
     return () => window.removeEventListener('keydown', handleKeyPress)
   }, [])
 
-  const addToCart = (product: any) => {
+  const addToCart = (product: { id: number; name: string; price: number; sku: string; image: string }) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id)
       if (existing) {
@@ -111,7 +109,7 @@ export default function POSPage() {
 
     setIsProcessing(true)
 
-    const subtotal = cart.reduce((sum, item) => sum + item.subtotal, 0)
+    const subtotal = cart.reduce((sum, item) => sum + (item.subtotal || item.price * item.quantity), 0)
     const tax = subtotal * 0.08
     const total = subtotal + tax
 
@@ -160,7 +158,7 @@ export default function POSPage() {
     }
   }
 
-  const subtotal = cart.reduce((sum, item) => sum + item.subtotal, 0)
+  const subtotal = cart.reduce((sum, item) => sum + (item.subtotal || item.price * item.quantity), 0)
   const tax = subtotal * 0.08
   const total = subtotal + tax
 
@@ -301,7 +299,7 @@ export default function POSPage() {
                         </Button>
                       </div>
                       <div className="text-right min-w-[60px]">
-                        <p className="font-medium text-sm">${item.subtotal.toFixed(2)}</p>
+                        <p className="font-medium text-sm">${(item.subtotal || item.price * item.quantity).toFixed(2)}</p>
                       </div>
                       <Button
                         variant="ghost"
