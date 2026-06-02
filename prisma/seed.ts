@@ -94,10 +94,8 @@ async function main() {
 
   // Create suppliers
   const suppliers = await Promise.all([
-    prisma.supplier.upsert({
-      where: { name: 'Baby Diapers Co.' },
-      update: {},
-      create: {
+    prisma.supplier.create({
+      data: {
         name: 'Baby Diapers Co.',
         contactPerson: 'John Smith',
         phone: '+1 234 567 890',
@@ -106,10 +104,8 @@ async function main() {
         notes: 'Primary diaper supplier',
       },
     }),
-    prisma.supplier.upsert({
-      where: { name: 'Organic Foods Ltd.' },
-      update: {},
-      create: {
+    prisma.supplier.create({
+      data: {
         name: 'Organic Foods Ltd.',
         contactPerson: 'Sarah Johnson',
         phone: '+1 345 678 901',
@@ -118,10 +114,8 @@ async function main() {
         notes: 'Organic baby food supplier',
       },
     }),
-    prisma.supplier.upsert({
-      where: { name: 'Toy World Inc.' },
-      update: {},
-      create: {
+    prisma.supplier.create({
+      data: {
         name: 'Toy World Inc.',
         contactPerson: 'Mike Davis',
         phone: '+1 456 789 012',
@@ -130,10 +124,8 @@ async function main() {
         notes: 'Baby toys supplier',
       },
     }),
-    prisma.supplier.upsert({
-      where: { name: 'Baby Fashion' },
-      update: {},
-      create: {
+    prisma.supplier.create({
+      data: {
         name: 'Baby Fashion',
         contactPerson: 'Emily Brown',
         phone: '+1 567 890 123',
@@ -142,10 +134,8 @@ async function main() {
         notes: 'Baby clothing supplier',
       },
     }),
-    prisma.supplier.upsert({
-      where: { name: 'Health First' },
-      update: {},
-      create: {
+    prisma.supplier.create({
+      data: {
         name: 'Health First',
         contactPerson: 'David Wilson',
         phone: '+1 678 901 234',

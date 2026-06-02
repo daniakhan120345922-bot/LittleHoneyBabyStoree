@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db/prisma"
 import { auth } from "@/lib/auth"
 
-export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params
     const session = await auth()
     if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
@@ -14,7 +15,7 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
 
     // Get current supplier
     const supplier = await prisma.supplier.findUnique({
-      where: { id: params.id },
+      where: { id },
     })
 
     if (!supplier) {
@@ -37,7 +38,7 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
     // Create credit transaction
     const transaction = await prisma.supplierCreditTransaction.create({
       data: {
-        supplierId: params.id,
+        supplierId: id,
         type,
         amount,
         balance: newBalance,
@@ -48,7 +49,7 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
 
     // Update supplier balance
     await prisma.supplier.update({
-      where: { id: params.id },
+      where: { id },
       data: { creditBalance: newBalance },
     })
 
@@ -72,15 +73,16 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
   }
 }
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params
     const session = await auth()
     if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
     const transactions = await prisma.supplierCreditTransaction.findMany({
-      where: { supplierId: params.id },
+      where: { supplierId: id },
       orderBy: { createdAt: "desc" },
     })
 
