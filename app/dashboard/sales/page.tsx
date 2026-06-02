@@ -167,7 +167,7 @@ export default function SalesPage() {
         <TabsContent value="today">
           <Card>
             <CardHeader>
-              <CardTitle>Today's Sales</CardTitle>
+              <CardTitle>Today&apos;s Sales</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-center py-8 text-muted-foreground">
@@ -180,7 +180,7 @@ export default function SalesPage() {
         <TabsContent value="week">
           <Card>
             <CardHeader>
-              <CardTitle>This Week's Sales</CardTitle>
+              <CardTitle>This Week&apos;s Sales</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-center py-8 text-muted-foreground">
@@ -193,7 +193,7 @@ export default function SalesPage() {
         <TabsContent value="month">
           <Card>
             <CardHeader>
-              <CardTitle>This Month's Sales</CardTitle>
+              <CardTitle>This Month&apos;s Sales</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-center py-8 text-muted-foreground">

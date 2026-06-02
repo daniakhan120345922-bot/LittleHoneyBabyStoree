@@ -35,8 +35,8 @@ cp env.example .env
 2. Edit `.env` with your database credentials:
 ```env
 DATABASE_URL="postgresql://postgres:password@localhost:5432/little_honey_pos?schema=public"
-NEXTAUTH_SECRET="your-secret-key-here-change-in-production"
-NEXTAUTH_URL="http://localhost:3000"
+NEXTNEXTAUTH_SECRET="your-secret-key-here-change-in-production"
+NEXTNEXTAUTH_URL="http://localhost:3000"
 NODE_ENV="development"
 ```
 
@@ -135,9 +135,9 @@ docker-compose exec app npm run db:seed
      - For Vercel Postgres: Get from your Vercel Postgres dashboard
      - For external: `postgresql://user:password@host:port/database?schema=public`
    
-   - `NEXTAUTH_SECRET`: Generate with `openssl rand -base64 32`
+   - `AUTH_SECRET`: Generate with `openssl rand -base64 32`
    
-   - `NEXTAUTH_URL`: Your Vercel deployment URL (e.g., `https://your-app.vercel.app`)
+   - `AUTH_URL`: Your Vercel deployment URL (e.g., `https://your-app.vercel.app`)
    
    - `NODE_ENV`: `production`
 
@@ -159,7 +159,7 @@ docker-compose exec app npm run db:seed
 
 ### Post-Deployment
 
-- Update your `NEXTAUTH_URL` to match your actual Vercel domain
+- Update your `AUTH_URL` to match your actual Vercel domain
 - Test the application at your Vercel URL
 - Configure custom domain if needed in Vercel settings
 

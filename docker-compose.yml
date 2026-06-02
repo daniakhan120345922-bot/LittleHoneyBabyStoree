@@ -29,8 +29,8 @@ services:
       - "3000:3000"
     environment:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/little_honey_pos?schema=public
-      NEXTAUTH_SECRET: your-secret-key-here-change-in-production
-      NEXTAUTH_URL: http://localhost:3000
+      AUTH_SECRET: your-secret-key-here-change-in-production
+      AUTH_URL: http://localhost:3000
       NODE_ENV: production
     depends_on:
       postgres:

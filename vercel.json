@@ -3,21 +3,5 @@
   "outputDirectory": ".next",
   "framework": "nextjs",
   "installCommand": "npm install",
-  "devCommand": "npm run dev",
-  "env": {
-    "NEXTAUTH_URL": {
-      "description": "The URL of your deployment",
-      "value": "https://your-domain.vercel.app"
-    },
-    "NEXTAUTH_SECRET": {
-      "description": "A secret key for NextAuth.js. Generate with: openssl rand -base64 32",
-      "generator": "secret"
-    },
-    "DATABASE_URL": {
-      "description": "PostgreSQL database connection string (use Vercel Postgres or external PostgreSQL)"
-    },
-    "NODE_ENV": {
-      "value": "production"
-    }
-  }
+  "devCommand": "npm run dev"
 }

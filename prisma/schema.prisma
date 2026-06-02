@@ -28,6 +28,7 @@ enum PaymentMethod {
   CARD
   BANK_TRANSFER
   MOBILE_PAYMENT
+  CREDIT
 }
 
 model User {

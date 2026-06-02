@@ -9,11 +9,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { offlineStorage } from "@/lib/offline-storage"
 
 export default function POSPage() {
-  const [cart, setCart] = useState<any[]>([])
+  const [cart, setCart] = useState<Array<{ id: number; name: string; sku: string; price: number; quantity: number; image: string; subtotal: number }>>([])
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [isProcessing, setIsProcessing] = useState(false)
-  const [isOnline, setIsOnline] = useState(true)
+  const [isOnline, setIsOnline] = useState(offlineStorage.isOnline())
   const barcodeInputRef = useRef<HTMLInputElement>(null)
 
   const categories = [
@@ -39,8 +39,6 @@ export default function POSPage() {
 
   // Check online status
   useEffect(() => {
-    setIsOnline(offlineStorage.isOnline())
-
     const handleOnline = () => setIsOnline(true)
     const handleOffline = () => setIsOnline(false)
 
@@ -66,7 +64,7 @@ export default function POSPage() {
     return () => window.removeEventListener('keydown', handleKeyPress)
   }, [])
 
-  const addToCart = (product: any) => {
+  const addToCart = (product: { id: number; name: string; sku: string; price: number; image: string }) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id)
       if (existing) {
