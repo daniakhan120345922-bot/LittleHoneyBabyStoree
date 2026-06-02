@@ -103,6 +103,66 @@ docker-compose exec app npx prisma db push
 docker-compose exec app npm run db:seed
 ```
 
+## Vercel Deployment
+
+### Prerequisites
+
+- Vercel account
+- PostgreSQL database (Vercel Postgres or external)
+
+### Deployment Steps
+
+1. **Push your code to GitHub**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin https://github.com/your-username/your-repo.git
+   git push -u origin main
+   ```
+
+2. **Deploy on Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Click "Add New Project"
+   - Import your GitHub repository
+   - Vercel will automatically detect Next.js
+
+3. **Configure Environment Variables**
+   Add these environment variables in Vercel project settings:
+   
+   - `DATABASE_URL`: Your PostgreSQL connection string
+     - For Vercel Postgres: Get from your Vercel Postgres dashboard
+     - For external: `postgresql://user:password@host:port/database?schema=public`
+   
+   - `NEXTAUTH_SECRET`: Generate with `openssl rand -base64 32`
+   
+   - `NEXTAUTH_URL`: Your Vercel deployment URL (e.g., `https://your-app.vercel.app`)
+   
+   - `NODE_ENV`: `production`
+
+4. **Deploy**
+   - Click "Deploy"
+   - Wait for the build to complete
+
+5. **Run Database Migrations**
+   After deployment, you need to set up your database:
+   
+   - If using Vercel Postgres: It will be automatically configured
+   - If using external PostgreSQL: Run `npx prisma db push` locally with your production DATABASE_URL
+
+6. **Seed Database (Optional)**
+   - Run the seed script with production DATABASE_URL:
+   ```bash
+   DATABASE_URL="your-production-url" npm run db:seed
+   ```
+
+### Post-Deployment
+
+- Update your `NEXTAUTH_URL` to match your actual Vercel domain
+- Test the application at your Vercel URL
+- Configure custom domain if needed in Vercel settings
+
 ## Learn More
 
 - [Next.js Documentation](https://nextjs.org/docs)
